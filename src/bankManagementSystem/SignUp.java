@@ -56,6 +56,7 @@ public class SignUp extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    // region Methods
     void setFormNumber() {
         //Getting a random number to use it for the application form
         randomNumber = new Random();
@@ -178,6 +179,7 @@ public class SignUp extends JFrame implements ActionListener {
         next.addActionListener(this);
         add(next);
     }
+    // endregion
 
     //Read information from the text fields in the first form
     @Override
