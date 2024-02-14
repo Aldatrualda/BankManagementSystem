@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
-public class SignUp extends JFrame implements ActionListener {
+public class SignUpPersonalDetails extends JFrame implements ActionListener {
     long randomDigital;
     Random randomNumber;
     JTextField nameTextField, surnameTextField, emailTextField, addressTextField, PinCodeTextField;
@@ -16,7 +16,7 @@ public class SignUp extends JFrame implements ActionListener {
     JRadioButton male, female;
     JDateChooser dateChooser;
 
-    public SignUp() {
+    public SignUpPersonalDetails() {
         this.setLayout(null);
 
         // Setting label form number
@@ -54,6 +54,7 @@ public class SignUp extends JFrame implements ActionListener {
         this.setSize(800, 600);
         this.setLocation(350, 10);
         this.setVisible(true);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     // region Methods
@@ -70,7 +71,7 @@ public class SignUp extends JFrame implements ActionListener {
     }
 
     void setLabelPersonalDetails() {
-        JLabel personalDetails = new JLabel("Personal details");
+        JLabel personalDetails = new JLabel("Form №1: Personal details");
         personalDetails.setFont(new Font("Times new roman", Font.BOLD, 28));
         personalDetails.setBounds(280, 80, 400, 30);
         add(personalDetails);
@@ -202,9 +203,12 @@ public class SignUp extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Name is required");
             } else {
                 SetConnectionToMySQL setConnectionToMySQL = new SetConnectionToMySQL();
-                String query = "insert into singup values ('" + formNumber + "', '" + name + "', '" + surname + "', '"
+                String query = "insert into signup values ('" + formNumber + "', '" + name + "', '" + surname + "', '"
                         + dateOfBirthday + "', '" + gender + "', '" + address + "', '" + email + "')";
                 setConnectionToMySQL.s.executeUpdate(query);
+
+                setVisible(false);
+                new SignUpAdditionalInformation(formNumber).setVisible(true);
             }
         } catch (Exception e) {
             System.out.println(e);

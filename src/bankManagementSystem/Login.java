@@ -49,9 +49,10 @@ public class Login extends JFrame implements ActionListener {
         getContentPane().setBackground(Color.WHITE);
 
         //Set the main frame
-        setSize(800, 480);
-        setVisible(true);
-        setLocation(350, 200);
+        this.setSize(800, 480);
+        this.setVisible(true);
+        this.setLocation(350, 200);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     // region Methods
@@ -132,7 +133,7 @@ public class Login extends JFrame implements ActionListener {
         } else if (ae.getSource() == login) {
 
         } else if (ae.getSource() == sighUp) {
-
+            new SignUpPersonalDetails().setVisible(true);
         }
     }
 }
