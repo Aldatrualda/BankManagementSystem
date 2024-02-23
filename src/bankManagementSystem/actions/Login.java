@@ -1,8 +1,12 @@
-package bankManagementSystem;
+package bankManagementSystem.actions;
+
+import bankManagementSystem.connectionToSQL.SetConnectionToMySQL;
+import bankManagementSystem.formAccounts.SignUpPersonalDetailsForm1;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.ResultSet;
 
 
 public class Login extends JFrame implements ActionListener {
@@ -19,34 +23,34 @@ public class Login extends JFrame implements ActionListener {
         setLayout(null);
 
         //LOGO OF FRAME - Setting a logo for the frame
-        setTheFramesLogo();
+        this.setTheFramesLogo();
 
         //*TEXT - welcoming a customer on the main screen
-        printTextOfWelcomingTheCustomer();
+        this.printTextOfWelcomingTheCustomer();
 
         //TEXT - the line says Card №: on the screen
-        printingTextToAskTheCardOfCustomer();
+        this.printingTextToAskTheCardOfCustomer();
 
         //TEXT FIELD - the field to enter the data of a customer's card (number)
-        createFieldToEnterDataCard();
+        this.createFieldToEnterDataCard();
 
         //TEXT - the line says PIN on the screen
-        printingTextToAskThePINOfCustomersCard();
+        this.printingTextToAskThePINOfCustomersCard();
 
         //TEXT FIELD - the field to enter the data of a customer's card (pin)
-        createFieldToEnterPinCard();
+        this.createFieldToEnterPinCard();
 
         //BUTTON - create a button to sign in
-        createButtonToSignIn();
+        this.createButtonToSignIn();
 
         //BUTTON - create a button to clear the text fields
-        createButtonToClearTextFields();
+        this.createButtonToClearTextFields();
 
         //BUTTON - create a button to sign up
-        createButtonToSighUp();
+        this.createButtonToSighUp();
 
         //Set the background
-        getContentPane().setBackground(Color.WHITE);
+        this.getContentPane().setBackground(Color.WHITE);
 
         //Set the main frame
         this.setSize(800, 480);
@@ -121,7 +125,7 @@ public class Login extends JFrame implements ActionListener {
         sighUp.setBounds(250, 330, 230, 35);
         sighUp.setBackground(Color.BLACK);
         sighUp.setForeground(Color.WHITE);
-        clear.addActionListener(this);
+        sighUp.addActionListener(this);
         add(sighUp);
     }
     // endregion
@@ -131,9 +135,25 @@ public class Login extends JFrame implements ActionListener {
             cardTextField.setText("");
             PINTextField.setText("");
         } else if (ae.getSource() == login) {
+            SetConnectionToMySQL setConnectionToMySQL = new SetConnectionToMySQL();
+            String cardNumber = cardTextField.getText();
+            String pinNumber = PINTextField.getText();
+            String query = "select * from login where cardNumber = '" + cardNumber + "'and pinNumber = '" + pinNumber + "'";
 
+            try {
+                ResultSet resultSet = setConnectionToMySQL.s.executeQuery(query);
+                if (resultSet.next()) {
+                    setVisible(false);
+                    new Transactions(pinNumber).setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Incorrect number or PIN");
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         } else if (ae.getSource() == sighUp) {
-            new SignUpPersonalDetails().setVisible(true);
+            setVisible(false);
+            new SignUpPersonalDetailsForm1().setVisible(true);
         }
     }
 }
