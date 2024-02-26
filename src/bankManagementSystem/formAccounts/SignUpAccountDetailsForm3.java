@@ -1,4 +1,8 @@
-package bankManagementSystem;
+package bankManagementSystem.formAccounts;
+
+import bankManagementSystem.actions.Deposit;
+import bankManagementSystem.actions.Login;
+import bankManagementSystem.connectionToSQL.SetConnectionToMySQL;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,31 +10,31 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
-public class SignUpAccountDetails extends JFrame implements ActionListener {
+public class SignUpAccountDetailsForm3 extends JFrame implements ActionListener {
     JRadioButton saving, fixedDeposit, retirementAccount, salaryAccount;
     JLabel accountDetails, accountType, cardNumber, pin, phoneNumber, serviceRequired;
     JCheckBox ATMCard, internetBanking, mobileBanking, emailAndSMSNotifications, declaration;
     JButton submit, cancel;
     String uniqueRandomNumber;
 
-    public SignUpAccountDetails(String uniqueRandomNumber) {
+    public SignUpAccountDetailsForm3(String uniqueRandomNumber) {
         this.uniqueRandomNumber = uniqueRandomNumber;
 
         // Setting the label "Account details"
-        setLabelAccountDetails();
+        this.setLabelAccountDetails();
 
         // Setting various types of account
-        setLabelAccountAndButtons();
+        this.setLabelAccountAndButtons();
 
         // Setting lines of card number, PIN, phone number
-        setLabelCardNumberAndPINAndPhoneNumber();
+        this.setLabelCardNumberAndPINAndPhoneNumber();
 
         // Setting the label "Service required: " and check boxes such as atm card, internet banking, mobile banking,
         // email and SMS notifications, declaration
-        setLabelServiceRequired();
+        this.setLabelServiceRequired();
 
         //Setting two buttons such as submit and cancel
-        setButtonsSubmitAndCancel();
+        this.setButtonsSubmitAndCancel();
 
 
         this.setLayout(null);
@@ -159,6 +163,7 @@ public class SignUpAccountDetails extends JFrame implements ActionListener {
         submit.addActionListener(this);
         add(submit);
     }
+    //endregion
 
     @Override
     public void actionPerformed(ActionEvent ae) {
@@ -206,14 +211,17 @@ public class SignUpAccountDetails extends JFrame implements ActionListener {
 
                     //Show information such as cardNumber and PIN on screen
                     JOptionPane.showMessageDialog(null, "Card number " + cardNumber + "\nPIN: " + pinNumber);
+
+                    setVisible(false);
+                    new Deposit(pinNumber).setVisible(false);
                 }
             } catch (Exception e) {
-                System.out.println(e);
+                System.out.println("Mistake is " + e);
             }
 
         } else if (ae.getSource() == cancel) {
-
+            setVisible(false);
+            new Login().setVisible(true);
         }
     }
-    //endregion
 }

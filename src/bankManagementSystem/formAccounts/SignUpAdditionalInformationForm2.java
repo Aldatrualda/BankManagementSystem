@@ -1,12 +1,13 @@
-package bankManagementSystem;
+package bankManagementSystem.formAccounts;
+
+import bankManagementSystem.connectionToSQL.SetConnectionToMySQL;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
 
-public class SignUpAdditionalInformation extends JFrame implements ActionListener {
+public class SignUpAdditionalInformationForm2 extends JFrame implements ActionListener {
     JLabel additionalDetails, clintStatus, income, VIP, existingAccount;
     JComboBox status, incomeBox;
     JRadioButton VIPYes, VIPNo, existing, notExisting;
@@ -14,7 +15,7 @@ public class SignUpAdditionalInformation extends JFrame implements ActionListene
 
     String uniqueRandomNumber;
 
-    public SignUpAdditionalInformation(String uniqueRandomNumber) {
+    public SignUpAdditionalInformationForm2(String uniqueRandomNumber) {
         this.uniqueRandomNumber = uniqueRandomNumber;
         //Setting the Label "Additional details"
         this.setLabelAdditionalDetails();
@@ -43,6 +44,8 @@ public class SignUpAdditionalInformation extends JFrame implements ActionListene
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
+
+    // region Methods
     void setLabelAdditionalDetails() {
         additionalDetails = new JLabel("Form №2: Additional details");
         additionalDetails.setFont(new Font("Times new roman", Font.BOLD, 28));
@@ -78,15 +81,6 @@ public class SignUpAdditionalInformation extends JFrame implements ActionListene
         add(incomeBox);
     }
 
-    // region Methods
-    //    void setLabelFormNumber() {
-//
-//        //The label to print on the screen the line
-//        JLabel formNumber = new JLabel("APPLICATION FORM №" + randomDigital);
-//        formNumber.setFont(new Font("Times new roman", Font.BOLD, 38));
-//        formNumber.setBounds(140, 20, 600, 40);
-//        add(formNumber);
-//    }
     void setLabelVIPAndAddRadioButton() {
         VIP = new JLabel("VIP: ");
         VIP.setFont(new Font("Times new roman", Font.BOLD, 20));
@@ -169,9 +163,9 @@ public class SignUpAdditionalInformation extends JFrame implements ActionListene
             setConnectionToMySQL.s.executeUpdate(query);
 
             setVisible(false);
-            new SignUpAccountDetails(formNumber).setVisible(true);
+            new SignUpAccountDetailsForm3(formNumber).setVisible(true);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("Mistale is " + e);
         }
     }
 }

@@ -1,5 +1,6 @@
-package bankManagementSystem;
+package bankManagementSystem.formAccounts;
 
+import bankManagementSystem.connectionToSQL.SetConnectionToMySQL;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
@@ -8,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
-public class SignUpPersonalDetails extends JFrame implements ActionListener {
+public class SignUpPersonalDetailsForm1 extends JFrame implements ActionListener {
     long randomDigital;
     Random randomNumber;
     JTextField nameTextField, surnameTextField, emailTextField, addressTextField, PinCodeTextField;
@@ -16,38 +17,38 @@ public class SignUpPersonalDetails extends JFrame implements ActionListener {
     JRadioButton male, female;
     JDateChooser dateChooser;
 
-    public SignUpPersonalDetails() {
+    public SignUpPersonalDetailsForm1() {
         this.setLayout(null);
 
         // Setting label form number
-        setFormNumber();
+        this.setFormNumber();
 
         // Setting label personal details
-        setLabelPersonalDetails();
+        this.setLabelPersonalDetails();
 
         // Setting label name and text field
-        setNameLabelAndTextField();
+        this.setNameLabelAndTextField();
 
         //Setting label surname and text field
-        setSurnameLabelAndTextField();
+        this.setSurnameLabelAndTextField();
 
         //Setting label - birthday and text field
-        setBirthdayLabelAndTextField();
+        this.setBirthdayLabelAndTextField();
 
         //Setting label - gender and ...
-        setGenderLabelAndRadioButton();
+        this.setGenderLabelAndRadioButton();
 
         //Setting label - email and text field
-        setEmailLabelAndTextField();
+        this.setEmailLabelAndTextField();
 
         //Setting label - address and text field
-        setFullAddressAndTextField();
+        this.setFullAddressAndTextField();
 
         //Setting PinCode
-        setPinCodeAndTextField();
+        this.setPinCodeAndTextField();
 
         //Setting NEXT button to switch the application form
-        setNextButton();
+        this.setNextButton();
 
         //Settings of signUps frame
         this.getContentPane().setBackground(Color.WHITE);
@@ -208,10 +209,10 @@ public class SignUpPersonalDetails extends JFrame implements ActionListener {
                 setConnectionToMySQL.s.executeUpdate(query);
 
                 setVisible(false);
-                new SignUpAdditionalInformation(formNumber).setVisible(true);
+                new SignUpAdditionalInformationForm2(formNumber).setVisible(true);
             }
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("Mistake is " + e);
         }
     }
 }
